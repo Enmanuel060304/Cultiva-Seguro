@@ -41,6 +41,23 @@ const AgrobotPage = () => {
       sender: 'user',
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
+
+    // Si el usuario pregunta quién eres, responde como Agrobot
+    if (
+      (customInput && /qu[ií]e?n\s+eres|qu[ií]e?n\s+es\s+agrobot|tu\s+nombre|qu[ií]e?n\s+soy/i.test(customInput))
+    ) {
+      setMessages(prev => [
+      ...prev,
+      userMessage,
+      {
+        text: "Soy Agrobot, tu asistente inteligente de agricultura. Estoy aquí para ayudarte con recomendaciones agrícolas y responder tus preguntas sobre cultivos y clima.",
+        sender: 'agrobot',
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      }
+      ]);
+      setLoading(false);
+      return;
+    }
     
     setMessages(prev => [...prev, userMessage]);
     
